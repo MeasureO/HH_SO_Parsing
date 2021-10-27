@@ -35,7 +35,6 @@ def extract_jobs(last_page):
         soup = BeautifulSoup(result.text, 'html.parser')
         results = soup.find_all('div', {'class': '-job'})
         for result in results:
-            # print(result['data-jobid'])
             job = extract_job(result)
             jobs.append(job)
     return jobs

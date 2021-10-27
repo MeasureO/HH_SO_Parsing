@@ -10,6 +10,7 @@ headers = {
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive'
     }
+
 def extract_max_page():
     hh_request = requests.get(URL, headers=headers)
     hh_soup = BeautifulSoup(hh_request.text, 'html.parser')
@@ -18,8 +19,7 @@ def extract_max_page():
     for page in paginator:
         pages.append(int(page.find('a').text))
     return pages[-1]
-# for page in range(max_page):
-#     print(f'page={page}')
+
 def extract_job(html):
     title = html.find("a").text.strip()
     link = html.find("a")['href']
@@ -33,7 +33,6 @@ def extract_jobs(last_page):
     for page in range(last_page):
         print(f"HeadHunter: parsing page={page}")
         result = requests.get(f'{URL}&page={page}', headers=headers)
-        # print(result.status_code)
         soup = BeautifulSoup(result.text, 'html.parser') 
         results = soup.find_all("div", {'class': 'vacancy-serp-item'})
         for result in results:
